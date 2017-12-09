@@ -2,7 +2,10 @@ package com.springmvc.springmongodbweb.controllers;
 
 import com.springmvc.springmongodbweb.models.Product;
 import com.springmvc.springmongodbweb.repositories.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,17 +20,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ProductController {
 
-    @Autowired
-    ProductRepository productRepository;
+    private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
-    @RequestMapping("/product")
+    private ProductRepository productRepository;
+
+    @Autowired
+    ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    @RequestMapping(value = "/product", produces = MediaType.TEXT_HTML_VALUE)
     public String product(Model model) {
+        LOG.info("Getting list of products");
         model.addAttribute("products", productRepository.findAll());
         return "product";
     }
 
     @RequestMapping("/create")
     public String create(Model model) {
+        LOG.info("Trying to create a product {}", model);
         return "create";
     }
 

@@ -11,11 +11,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "products")
 public class Product {
     @Id
-    String id;
-    String prodName;
-    String prodDesc;
-    Double prodPrice;
-    String prodImage;
+    private String id;
+    private String prodName;
+    private String prodDesc;
+    private Double prodPrice;
+    private String prodImage;
 
     public Product() {
     }
