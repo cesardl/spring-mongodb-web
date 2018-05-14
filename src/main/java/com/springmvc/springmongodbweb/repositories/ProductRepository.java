@@ -9,5 +9,4 @@ import org.springframework.data.repository.CrudRepository;
  * @author Entelgy
  */
 public interface ProductRepository extends CrudRepository<Product, String> {
-
 }
