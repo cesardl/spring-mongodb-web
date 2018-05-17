@@ -35,3 +35,9 @@ Execute this command to start the MongoDB service.
 ```
 mongod --config c:\developer-resources\mongo-db\mongo.config
 ```
+
+To install `mongod` as a Windows Service use this command:
+
+```
+sc.exe create MongoDB binPath= "\"C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe\" --service --config=\"C:\developer-resources\mongo-db\mongo.config\"" DisplayName= "MongoDB" start= "auto"
+```
