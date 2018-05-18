@@ -2,6 +2,8 @@
 
 Sample application with Mongodb.
 
+## For Windows Environment
+
 For this example I have the following information about Mongo installation.
 
 ```
@@ -40,4 +42,10 @@ To install `mongod` as a Windows Service use this command:
 
 ```
 sc.exe create MongoDB binPath= "\"C:\Program Files\MongoDB\Server\3.2\bin\mongod.exe\" --service --config=\"C:\developer-resources\mongo-db\mongo.config\"" DisplayName= "MongoDB" start= "auto"
+```
+
+And if you want to add some description for MongoDB service created use this command:
+
+```
+sc description MongoDB "NoSQL database for giant ideas"
 ```

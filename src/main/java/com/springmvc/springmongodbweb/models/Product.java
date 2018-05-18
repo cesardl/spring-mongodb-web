@@ -1,6 +1,7 @@
 package com.springmvc.springmongodbweb.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -10,10 +11,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "products")
 public class Product {
+
     @Id
     private String id;
+
     private String prodId;
+
+    @Indexed(unique = true)
     private String prodName;
+
     private String prodDesc;
     private Double prodPrice;
     private String prodImage;

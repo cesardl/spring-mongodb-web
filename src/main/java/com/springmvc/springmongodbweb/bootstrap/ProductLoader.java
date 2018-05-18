@@ -23,24 +23,39 @@ public class ProductLoader implements ApplicationListener<ContextRefreshedEvent>
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
 
-        Product shirt = new Product();
-        shirt.setProdName("Shirt");
-        shirt.setProdDesc("Spring Framework Guru Shirt");
-        shirt.setProdPrice(18.95);
-        shirt.setProdImage("https://springframework.guru/wp-content/uploads/2015/04/spring_framework_guru_shirt-rf412049699c14ba5b68bb1c09182bfa2_8nax2_512.jpg");
-        shirt.setProdId("235268845711068308");
-        productRepository.save(shirt);
+        String prodName = "Shirt";
+        Product product = productRepository.findFirstByProdName(prodName);
 
-        LOG.info("Saved Shirt - id: " + shirt.getId());
+        if (product == null) {
+            Product shirt = new Product();
+            shirt.setProdName("Shirt");
+            shirt.setProdDesc("Spring Framework Guru Shirt");
+            shirt.setProdPrice(18.95);
+            shirt.setProdImage("https://springframework.guru/wp-content/uploads/2015/04/spring_framework_guru_shirt-rf412049699c14ba5b68bb1c09182bfa2_8nax2_512.jpg");
+            shirt.setProdId("235268845711068308");
+            productRepository.save(shirt);
 
-        Product mug = new Product();
-        mug.setProdName("Mug");
-        mug.setProdDesc("Spring Framework Guru Mug");
-        mug.setProdImage("https://springframework.guru/wp-content/uploads/2015/04/spring_framework_guru_coffee_mug-r11e7694903c348e1a667dfd2f1474d95_x7j54_8byvr_512.jpg");
-        mug.setProdId("168639393495335947");
-        mug.setProdPrice(11.95);
-        productRepository.save(mug);
+            LOG.info("Saved Shirt - id: " + shirt.getId());
+        } else {
+            LOG.info("Shirt already exits");
+        }
 
-        LOG.info("Saved Mug - id:" + mug.getId());
+        prodName = "Mug";
+
+        product = productRepository.findFirstByProdName(prodName);
+
+        if (product == null) {
+            Product mug = new Product();
+            mug.setProdName(prodName);
+            mug.setProdDesc("Spring Framework Guru Mug");
+            mug.setProdImage("https://springframework.guru/wp-content/uploads/2015/04/spring_framework_guru_coffee_mug-r11e7694903c348e1a667dfd2f1474d95_x7j54_8byvr_512.jpg");
+            mug.setProdId("168639393495335947");
+            mug.setProdPrice(11.95);
+            productRepository.save(mug);
+
+            LOG.info("Saved Mug - id:" + mug.getId());
+        } else {
+            LOG.info("Mug already exits");
+        }
     }
 }
