@@ -4,10 +4,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
+
 /**
  * Created on 20/09/2017.
  *
- * @author Entelgy
+ * @author cesardl
  */
 @Document(collection = "products")
 public class Product {
@@ -15,13 +17,14 @@ public class Product {
     @Id
     private String id;
 
+    //@Indexed(unique = true)
     private String prodId;
 
     @Indexed(unique = true)
     private String prodName;
 
     private String prodDesc;
-    private Double prodPrice;
+    private BigDecimal prodPrice;
     private String prodImage;
 
     public String getId() {
@@ -56,11 +59,11 @@ public class Product {
         this.prodDesc = prodDesc;
     }
 
-    public Double getProdPrice() {
+    public BigDecimal getProdPrice() {
         return prodPrice;
     }
 
-    public void setProdPrice(Double prodPrice) {
+    public void setProdPrice(BigDecimal prodPrice) {
         this.prodPrice = prodPrice;
     }
 

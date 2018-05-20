@@ -49,3 +49,8 @@ And if you want to add some description for MongoDB service created use this com
 ```
 sc description MongoDB "NoSQL database for giant ideas"
 ```
+
+## Inspired on
+
+- https://www.djamware.com/post/59b606e280aca768e4d2b13b/spring-boot-mvc-data-and-mongodb-crud-java-web-application
+- https://www.mkyong.com/spring-boot/spring-boot-spring-data-mongodb-example/

@@ -1,4 +1,4 @@
-#mongodb
+# mongodb
 spring:
   data:
     mongodb:
@@ -6,9 +6,11 @@ spring:
       host: localhost
       port: 27017
 
-
-#logging
+# logging
 logging:
   level:
+    root: warn
+    com.springmvc.springmongodbweb: debug
+    org.springframework.web: info
     org.springframework.data: debug
-    .: error
+    org.hibernate: error
