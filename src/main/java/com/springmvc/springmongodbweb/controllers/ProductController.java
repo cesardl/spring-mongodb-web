@@ -1,21 +1,25 @@
 package com.springmvc.springmongodbweb.controllers;
 
+import com.springmvc.springmongodbweb.forms.ProductForm;
 import com.springmvc.springmongodbweb.models.Product;
 import com.springmvc.springmongodbweb.repositories.ProductRepository;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.style.ToStringCreator;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.math.BigDecimal;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -29,10 +33,12 @@ public class ProductController {
     private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
 
     private ProductRepository productRepository;
+    private ModelMapper modelMapper;
 
     @Autowired
-    ProductController(ProductRepository productRepository) {
+    ProductController(ProductRepository productRepository, ModelMapper modelMapper) {
         this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
     }
 
     @RequestMapping(value = "/product", produces = MediaType.TEXT_HTML_VALUE)
@@ -46,22 +52,24 @@ public class ProductController {
 
     @RequestMapping("/create")
     public String create(Model model) {
-        String productCode = generatedCode();
-        model.addAttribute("productCode", productCode);
-        LOG.info("Trying to create a product, random code {}", productCode);
+        ProductForm form = new ProductForm();
+        form.setProdId(generatedCode());
+
+        model.addAttribute("productForm", form);
+        LOG.info("Trying to create a product, random code {}", form.getProdId());
         return "create";
     }
 
-    @RequestMapping("/save")
-    public String save(@RequestParam String prodId, @RequestParam String prodName, @RequestParam String prodDesc, @RequestParam BigDecimal prodPrice, @RequestParam String prodImage) {
-        Product product = new Product();
-        product.setProdId(prodId);
-        product.setProdName(prodName);
-        product.setProdDesc(prodDesc);
-        product.setProdPrice(prodPrice);
-        product.setProdImage(prodImage);
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(@Valid ProductForm productForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            LOG.warn("Have {} errors during the creation process, please check it!", bindingResult.getErrorCount());
+            return "create";
+        }
 
-        LOG.debug("Trying to save object {}", new ToStringCreator(product));
+        Product product = modelMapper.map(productForm, Product.class);
+
+        LOG.debug("Trying to save object {}", ToStringBuilder.reflectionToString(product));
         Product saved = productRepository.save(product);
         LOG.info("Product saved {}", saved.getId());
 
@@ -91,19 +99,21 @@ public class ProductController {
             product.setProdId(generatedCode());
         }
 
-        model.addAttribute("product", product);
+        model.addAttribute("productForm", modelMapper.map(product, ProductForm.class));
         return "edit";
     }
 
-    @RequestMapping("/update")
-    public String update(@RequestParam String id, @RequestParam String prodId, @RequestParam String prodName, @RequestParam String prodDesc, @RequestParam BigDecimal prodPrice, @RequestParam String prodImage) {
-        Product product = productRepository.findOne(id);
-        product.setProdId(prodId);
-        product.setProdName(prodName);
-        product.setProdDesc(prodDesc);
-        product.setProdPrice(prodPrice);
-        product.setProdImage(prodImage);
-        LOG.debug("Trying to update object {}", new ToStringCreator(product));
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(@Valid ProductForm productForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            LOG.warn("Have {} errors during the update process, please check it!", bindingResult.getErrorCount());
+            return "edit";
+        }
+
+        Product product = productRepository.findOne(productForm.getId());
+        modelMapper.map(productForm, product);
+
+        LOG.debug("Trying to update object {}", ToStringBuilder.reflectionToString(product));
         Product updated = productRepository.save(product);
         LOG.info("Product updated {}", updated.getId());
 

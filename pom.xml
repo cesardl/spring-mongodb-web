@@ -16,7 +16,7 @@
     <packaging>jar</packaging>
 
     <name>spring-mongodb-web</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Demo project for Spring Boot with MongoDB</description>
 
     <scm>
         <url>https://github.com/cesardl/spring-mongodb-web</url>
@@ -24,6 +24,9 @@
 
     <properties>
         <java.version>1.8</java.version>
+
+        <commons-lang3.version>3.7</commons-lang3.version>
+        <modelmapper.version>0.7.5</modelmapper.version>
     </properties>
 
     <dependencies>
@@ -43,7 +46,12 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.7</version>
+            <version>${commons-lang3.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${modelmapper.version}</version>
         </dependency>
 
         <dependency>

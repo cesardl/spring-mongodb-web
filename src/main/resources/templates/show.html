@@ -15,11 +15,11 @@
     <h2 th:text="${product.prodName}"></h2>
     <h2><img th:src="${product.prodImage}" width="200" /></h2>
     <dl class="list">
-      <dt>Product Code</dt>
+      <dt>Code</dt>
       <dd th:text="${product.prodId}"></dd>
-      <dt>Product Description</dt>
+      <dt>Description</dt>
       <dd th:text="${product.prodDesc}"></dd>
-      <dt>Product Price</dt>
+      <dt>Price</dt>
       <dd th:text="${product.prodPrice}"></dd>
     </dl>
     <form action="/delete">

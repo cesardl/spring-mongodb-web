@@ -13,26 +13,28 @@
       <a href="/product" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list"></span> Product</a>
     </h3>
     <h2>Create Product</h2>
-    <form action="/save">
+    <form action="#" th:action="@{/save}" th:object="${productForm}" method="post">
       <div class="form-group">
         <label for="prodId">Product Code:</label>
-        <input type="text" class="form-control" id="prodId" name="prodId" th:value="${productCode}" readonly="readonly" />
+        <input type="text" class="form-control" id="prodId" name="prodId" th:value="${productForm.prodId}" readonly="readonly" />
       </div>
       <div class="form-group">
         <label for="prodName">Product Name:</label>
-        <input type="text" class="form-control" id="prodName" name="prodName" />
+        <input type="text" class="form-control" id="prodName" name="prodName" th:value="${productForm.prodName}" />
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('prodName')}" th:errors="*{prodName}">Name Error</div>
       </div>
       <div class="form-group">
         <label for="prodDesc">Product Description</label>
-        <textarea class="form-control" id="prodDesc" name="prodDesc" cols="60" rows="3"></textarea>
+        <textarea class="form-control" id="prodDesc" name="prodDesc" cols="60" rows="3" th:text="${productForm.prodDesc}"></textarea>
       </div>
       <div class="form-group">
         <label for="prodPrice">Product Price</label>
-        <input type="number" class="form-control" id="prodPrice" name="prodPrice" value="0" step=".01" />
+        <input type="number" class="form-control" id="prodPrice" name="prodPrice" th:value="${productForm.prodPrice}" step=".01" />
+        <div class="alert alert-warning" th:if="${#fields.hasErrors('prodPrice')}" th:errors="*{prodPrice}">Price Error</div>
       </div>
       <div class="form-group">
         <label for="prodImage">Product Image URL:</label>
-        <input type="url" class="form-control" id="prodImage" name="prodImage" />
+        <input type="url" class="form-control" id="prodImage" name="prodImage" th:value="${productForm.prodImage}" />
       </div>
       <button type="submit" class="btn btn-success">Save</button>
     </form>

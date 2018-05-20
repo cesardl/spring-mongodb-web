@@ -1,31 +1,36 @@
-package com.springmvc.springmongodbweb.models;
+package com.springmvc.springmongodbweb.forms;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 /**
- * Created on 20/09/2017.
+ * Created on 20/05/2018.
  *
- * @author cesardl
+ * @author Cesardl
  */
-@Document(collection = "products")
-public class Product {
+public class ProductForm {
 
-    @Id
     private String id;
 
-    @Indexed(unique = true)
+    @NotNull
     private String prodId;
 
-    @Indexed(unique = true)
+    @NotNull
+    @Size(min = 2, max = 30)
     private String prodName;
 
     private String prodDesc;
+
+    @Min(10)
     private BigDecimal prodPrice;
+
     private String prodImage;
+
+    public ProductForm() {
+        this.prodPrice = BigDecimal.ZERO;
+    }
 
     public String getId() {
         return id;
