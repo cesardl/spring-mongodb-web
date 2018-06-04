@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${status + ' ' + error}"></title>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="alert alert-danger">
+        <h1>Something went wrong!</h1>
+        <h2>Our Engineers are on it</h2>
+        <a href="/product">Go Home</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <td>Date</td>
+                <td th:text="${timestamp}"></td>
+            </tr>
+            <tr>
+                <td>Path</td>
+                <td th:text="${path}"></td>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td th:text="${message}"></td>
+            </tr>
+            <tr>
+                <td>Exception</td>
+                <td th:text="${exception}"></td>
+            </tr>
+            <tr>
+                <td>Trace</td>
+                <td>
+                    <pre th:text="${trace}"></pre>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

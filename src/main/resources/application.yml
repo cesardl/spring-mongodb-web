@@ -1,10 +1,17 @@
-# mongodb
 spring:
+  main.banner-mode: 'off'
+
+  # mongodb
   data:
     mongodb:
       database: springmongodb
       host: localhost
       port: 27017
+
+server:
+  error:
+    whitelabel.enabled: false
+    include-stacktrace: always
 
 # logging
 logging:

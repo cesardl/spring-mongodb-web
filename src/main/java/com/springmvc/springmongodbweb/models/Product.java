@@ -1,10 +1,14 @@
 package com.springmvc.springmongodbweb.models;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created on 20/09/2017.
@@ -26,6 +30,16 @@ public class Product {
     private String prodDesc;
     private BigDecimal prodPrice;
     private String prodImage;
+
+    // Auditing
+    @Version
+    private Long version;
+
+    @CreatedDate
+    private Date createdAt;
+
+    @LastModifiedDate
+    private Date lastModified;
 
     public String getId() {
         return id;
@@ -73,5 +87,29 @@ public class Product {
 
     public void setProdImage(String prodImage) {
         this.prodImage = prodImage;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
     }
 }

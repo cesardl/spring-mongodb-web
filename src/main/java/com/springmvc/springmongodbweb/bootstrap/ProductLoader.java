@@ -2,6 +2,7 @@ package com.springmvc.springmongodbweb.bootstrap;
 
 import com.springmvc.springmongodbweb.models.Product;
 import com.springmvc.springmongodbweb.repositories.ProductRepository;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 @Component
 public class ProductLoader implements ApplicationListener<ContextRefreshedEvent> {
 
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(ProductLoader.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ProductLoader.class);
 
     private ProductRepository productRepository;
 
